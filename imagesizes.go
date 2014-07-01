@@ -1,7 +1,8 @@
 package gocaa
 
+// These constants can be used to indicate the required image size to the various image retrieval methods
 const (
-	Small = iota
-	Large
-	Original
+	ImageSizeSmall = iota
+	ImageSizeLarge
+	ImageSizeOriginal
 )

@@ -77,9 +77,9 @@ func (c *CAAClient) getAndJSON(url *url.URL) (info *CoverArtInfo, err error) {
 func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, size int) (image CoverArtImage, err error) {
 	var extra string
 
-	if size == Small || size == 250 {
+	if size == ImageSizeSmall || size == 250 {
 		extra = "-250"
-	} else if size == Large || size == 500 {
+	} else if size == ImageSizeLarge || size == 500 {
 		extra = "-500"
 	} else {
 		extra = ""
@@ -151,8 +151,8 @@ func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err
 
 // GetReleaseGroupFront retrieves the front image of the release group with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseGroupFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
-	if size != Original {
-		err = InvalidImageSizeError{Entitytype: "release-group", Size: size}
+	if size != ImageSizeOriginal {
+		err = InvalidImageSizeError{EntityType: "release-group", Size: size}
 		return
 	}
 	image, err = c.getImage("release-group", mbid, "front", size)
