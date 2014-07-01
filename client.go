@@ -1,7 +1,6 @@
 package gocaa
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -10,6 +9,8 @@ import (
 	"net/url"
 	"path/filepath"
 	"strconv"
+
+	"code.google.com/p/go-uuid/uuid"
 )
 
 const baseurl = "http://coverartarchive.org"
