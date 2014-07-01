@@ -113,35 +113,35 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 
 }
 
-func (c *CAAClient) ReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
+func (c *CAAClient) GetReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release/" + mbid.String())
 	info, err = c.getAndJson(url)
 	return
 }
 
-func (c *CAAClient) ReleaseFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
+func (c *CAAClient) GetReleaseFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	image, err = c.getImage("release", mbid, "front", size)
 	return
 }
 
-func (c *CAAClient) ReleaseBack(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
+func (c *CAAClient) GetReleaseBack(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	image, err = c.getImage("release", mbid, "back", size)
 	return
 }
 
-func (c *CAAClient) ReleaseImage(mbid uuid.UUID, imageid int, size int) (image CoverArtImage, err error) {
+func (c *CAAClient) GetReleaseImage(mbid uuid.UUID, imageid int, size int) (image CoverArtImage, err error) {
 	id := strconv.Itoa(imageid)
 	image, err = c.getImage("release", mbid, id, size)
 	return
 }
 
-func (c *CAAClient) ReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
+func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release-group/" + mbid.String())
 	info, err = c.getAndJson(url)
 	return
 }
 
-func (c *CAAClient) ReleaseGroupFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
+func (c *CAAClient) GetReleaseGroupFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	if size != Original {
 		err = InvalidImageSizeError{Entitytype: "release-group", Size: size}
 		return
