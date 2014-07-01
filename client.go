@@ -50,7 +50,7 @@ func (c *CAAClient) get(url *url.URL) (resp *http.Response, err error) {
 	return
 }
 
-func (c *CAAClient) getAndJson(url *url.URL) (info *CoverArtInfo, err error) {
+func (c *CAAClient) getAndJSON(url *url.URL) (info *CoverArtInfo, err error) {
 	resp, err := c.get(url)
 
 	defer resp.Body.Close()
@@ -115,7 +115,7 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 
 func (c *CAAClient) GetReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release/" + mbid.String())
-	info, err = c.getAndJson(url)
+	info, err = c.getAndJSON(url)
 	return
 }
 
@@ -137,7 +137,7 @@ func (c *CAAClient) GetReleaseImage(mbid uuid.UUID, imageid int, size int) (imag
 
 func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release-group/" + mbid.String())
-	info, err = c.getAndJson(url)
+	info, err = c.getAndJSON(url)
 	return
 }
 
