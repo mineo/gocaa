@@ -1,3 +1,4 @@
+// Package gocaa provides access to the Cover ArtArchive (http://coverartarchive.org)
 package gocaa
 
 import (
@@ -15,11 +16,13 @@ import (
 
 const baseurl = "http://coverartarchive.org"
 
+// CAAClient manages the communication with the Cover Art Archive.
 type CAAClient struct {
 	useragent string
 	client    http.Client
 }
 
+// NewCAAClient returns a new CAAClient that uses the User-Agent useragent
 func NewCAAClient(useragent string) (c *CAAClient) {
 	c = &CAAClient{useragent: useragent, client: http.Client{}}
 	return
@@ -113,34 +116,40 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 
 }
 
+// GetReleaseInfo retrieves information about the images in the Cover Art Archive for the release with the MBID mbid
 func (c *CAAClient) GetReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release/" + mbid.String())
 	info, err = c.getAndJSON(url)
 	return
 }
 
+// GetReleaseFront retrieves the front image of the release with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	image, err = c.getImage("release", mbid, "front", size)
 	return
 }
 
+// GetReleaseBack retrieves the back image of the release with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseBack(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	image, err = c.getImage("release", mbid, "back", size)
 	return
 }
 
+// GetReleaseImage retrieves the image with the id imageid of the release with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseImage(mbid uuid.UUID, imageid int, size int) (image CoverArtImage, err error) {
 	id := strconv.Itoa(imageid)
 	image, err = c.getImage("release", mbid, id, size)
 	return
 }
 
+// GetReleaseGroupInfo retrieves information about the images in the Cover Art Archive for the release group with the MBID mbid
 func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := buildURL("release-group/" + mbid.String())
 	info, err = c.getAndJSON(url)
 	return
 }
 
+// GetReleaseGroupFront retrieves the front image of the release group with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseGroupFront(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
 	if size != Original {
 		err = InvalidImageSizeError{Entitytype: "release-group", Size: size}
