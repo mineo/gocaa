@@ -1,4 +1,4 @@
-package gocaa
+package caa
 
 import (
 	"fmt"

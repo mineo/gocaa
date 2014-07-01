@@ -1,4 +1,4 @@
-package gocaa
+package caa
 
 // CoverArtInfo is the unmarshaled representation of a JSON file in the Cover Art Archive.
 // See https://musicbrainz.org/doc/Cover_Art_Archive/API#Cover_Art_Archive_Metadata for an example.

@@ -1,5 +1,5 @@
-// Package gocaa provides access to the Cover ArtArchive (http://coverartarchive.org)
-package gocaa
+// Package caa provides access to the Cover ArtArchive (http://coverartarchive.org)
+package caa
 
 import (
 	"encoding/json"
