@@ -11,7 +11,7 @@ type HTTPError struct {
 }
 
 func (e HTTPError) Error() string {
-	return fmt.Sprintf("%i on %s", e.StatusCode, e.Url.String())
+	return fmt.Sprintf("%d on %s", e.StatusCode, e.URL.String())
 }
 
 type InvalidImageSizeError struct {
@@ -20,5 +20,5 @@ type InvalidImageSizeError struct {
 }
 
 func (e InvalidImageSizeError) Error() string {
-	return fmt.Sprintf("%s doesn't support image size %i", e.Entitytype, e.Size)
+	return fmt.Sprintf("%s doesn't support image size %d", e.Entitytype, e.Size)
 }
