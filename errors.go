@@ -7,7 +7,7 @@ import (
 
 type HTTPError struct {
 	StatusCode int
-	Url        *url.URL
+	URL        *url.URL
 }
 
 func (e HTTPError) Error() string {

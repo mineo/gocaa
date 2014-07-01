@@ -92,7 +92,7 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		err = HTTPError{StatusCode: resp.StatusCode, Url: url}
+		err = HTTPError{StatusCode: resp.StatusCode, URL: url}
 		return
 	}
 
