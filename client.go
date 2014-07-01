@@ -31,9 +31,7 @@ func buildURL(path string) (url *url.URL) {
 		return
 	}
 
-	log.Println(url)
 	url.Path = path
-	log.Println(url)
 	return
 }
 
