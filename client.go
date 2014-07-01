@@ -1,4 +1,4 @@
-// Package caa provides access to the Cover ArtArchive (http://coverartarchive.org)
+// Package caa provides access to the Cover Art Archive (http://coverartarchive.org)
 package caa
 
 import (
