@@ -45,6 +45,11 @@ func (c *CAAClient) get(url *url.URL) (resp *http.Response, err error) {
 
 	resp, err = c.client.Do(req)
 
+	if resp.StatusCode != http.StatusOK {
+		err = HTTPError{StatusCode: resp.StatusCode, URL: url}
+		return
+	}
+
 	if err != nil {
 		log.Fatalln(err)
 		return nil, err
