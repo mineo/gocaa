@@ -20,16 +20,17 @@ const baseurl = "http://coverartarchive.org"
 type CAAClient struct {
 	useragent string
 	client    http.Client
+	BaseURL   string
 }
 
 // NewCAAClient returns a new CAAClient that uses the User-Agent useragent
 func NewCAAClient(useragent string) (c *CAAClient) {
-	c = &CAAClient{useragent: useragent, client: http.Client{}}
+	c = &CAAClient{useragent: useragent, client: http.Client{}, BaseURL: baseurl}
 	return
 }
 
-func buildURL(path string) (url *url.URL) {
-	url, err := url.Parse(baseurl)
+func (c *CAAClient) buildURL(path string) (url *url.URL) {
+	url, err := url.Parse(c.BaseURL)
 
 	if err != nil {
 		return
@@ -90,7 +91,7 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 		extra = ""
 	}
 
-	url := buildURL(entitytype + "/" + mbid.String() + "/" + imageid + extra)
+	url := c.buildURL(entitytype + "/" + mbid.String() + "/" + imageid + extra)
 	resp, err := c.get(url)
 
 	defer resp.Body.Close()
@@ -123,7 +124,7 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 
 // GetReleaseInfo retrieves information about the images in the Cover Art Archive for the release with the MBID mbid
 func (c *CAAClient) GetReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
-	url := buildURL("release/" + mbid.String())
+	url := c.buildURL("release/" + mbid.String())
 	info, err = c.getAndJSON(url)
 	return
 }
@@ -149,7 +150,7 @@ func (c *CAAClient) GetReleaseImage(mbid uuid.UUID, imageid int, size int) (imag
 
 // GetReleaseGroupInfo retrieves information about the images in the Cover Art Archive for the release group with the MBID mbid
 func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
-	url := buildURL("release-group/" + mbid.String())
+	url := c.buildURL("release-group/" + mbid.String())
 	info, err = c.getAndJSON(url)
 	return
 }
