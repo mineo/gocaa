@@ -18,6 +18,7 @@ type CoverArtImageInfo struct {
 	Thumbnails thumbnailMap
 	Approved   bool
 	Edit       int
+	Id         string
 }
 
 // CoverArtImage is a wrapper around an image from the CAA, containing its binary data and mimetype information.
