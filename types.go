@@ -10,21 +10,21 @@ type CoverArtInfo struct {
 // CoverArtImageInfo is the unmarshaled representation of a single images metadata in a CAA JSON file.
 // See https://musicbrainz.org/doc/Cover_Art_Archive/API#Cover_Art_Archive_Metadata for an example.
 type CoverArtImageInfo struct {
-	Types      []string
-	Front      bool
+	Approved   bool
 	Back       bool
 	Comment    string
+	Edit       int
+	Front      bool
+	ID         string
 	Image      string
 	Thumbnails thumbnailMap
-	Approved   bool
-	Edit       int
-	Id         string
+	Types      []string
 }
 
 // CoverArtImage is a wrapper around an image from the CAA, containing its binary data and mimetype information.
 type CoverArtImage struct {
-	Mimetype string
 	Data     []byte
+	Mimetype string
 }
 
 type thumbnailMap map[string]string

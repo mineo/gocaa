@@ -128,7 +128,7 @@ func (s *MySuite) TestGetReleaseInfo(c *C) {
 	i := info.Images[0]
 	d.Assert(i.Comment, Equals, "")
 	d.Assert(i.Edit, Equals, 17462565)
-	d.Assert(i.Id, Equals, "829521842")
+	d.Assert(i.ID, Equals, "829521842")
 	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg")
 	d.Assert(i.Types[0], Equals, "Front")
 	d.Assert(len(i.Types), Equals, 1)
@@ -186,7 +186,7 @@ func (s *MySuite) TestGetReleaseGroupInfo(c *C) {
 	i := info.Images[0]
 	d.Assert(i.Comment, Equals, "")
 	d.Assert(i.Edit, Equals, 20202510)
-	d.Assert(i.Id, Equals, "2860563776")
+	d.Assert(i.ID, Equals, "2860563776")
 	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1/2860563776.jpg")
 	d.Assert(i.Types[0], Equals, "Front")
 	d.Assert(len(i.Types), Equals, 1)
