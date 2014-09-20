@@ -17,7 +17,7 @@ type CoverArtImageInfo struct {
 	Front      bool
 	ID         string
 	Image      string
-	Thumbnails thumbnailMap
+	Thumbnails ThumbnailMap
 	Types      []string
 }
 
@@ -27,4 +27,5 @@ type CoverArtImage struct {
 	Mimetype string
 }
 
-type thumbnailMap map[string]string
+// ThumbnailMap maps thumbnail names to their URLs. The only valid keys at the moment are "large" and "small".
+type ThumbnailMap map[string]string
