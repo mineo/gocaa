@@ -1,7 +1,7 @@
 # gocaa
 
 This package contains a library to access the
-[Cover Art Archive](http://coverartarchive.org) from Go.
+[Cover Art Archive](https://coverartarchive.org) from Go.
 
 ## Installation
 To get the latest stable version, user
