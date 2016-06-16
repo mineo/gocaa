@@ -14,7 +14,7 @@ import (
 	"code.google.com/p/go-uuid/uuid"
 )
 
-const baseurl = "http://coverartarchive.org"
+const baseurl = "https://coverartarchive.org"
 
 // CAAClient manages the communication with the Cover Art Archive.
 type CAAClient struct {
