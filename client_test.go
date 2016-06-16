@@ -57,7 +57,7 @@ func (s *MySuite) TestUserAgent(c *C) {
 
 func (s *MySuite) TestStatusCodes(c *C) {
 	possibleStatus := []int{400, 404, 405, 406, 502, 503}
-	for statusCode := range possibleStatus {
+	for _, statusCode := range possibleStatus {
 		f := func(w http.ResponseWriter, req *http.Request) {
 			w.WriteHeader(statusCode)
 			return
