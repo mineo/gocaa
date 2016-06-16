@@ -44,7 +44,7 @@ func getReleaseGroupFrontImage(c *caa.CAAClient, wg *sync.WaitGroup) {
 		return
 	}
 
-	log.Printf("The URL for %s's front image is %s\n", rgid.String(), image.Mimetype)
+	log.Printf("The MIME type for %s's front image is %s\n", rgid.String(), image.Mimetype)
 }
 
 func main() {
