@@ -125,8 +125,7 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 // GetReleaseInfo retrieves information about the images in the Cover Art Archive for the release with the MBID mbid
 func (c *CAAClient) GetReleaseInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := c.buildURL("release/" + mbid.String())
-	info, err = c.getAndJSON(url)
-	return
+	return c.getAndJSON(url)
 }
 
 // GetReleaseFront retrieves the front image of the release with the MBID mbid in the specified size
@@ -137,22 +136,19 @@ func (c *CAAClient) GetReleaseFront(mbid uuid.UUID, size int) (image CoverArtIma
 
 // GetReleaseBack retrieves the back image of the release with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseBack(mbid uuid.UUID, size int) (image CoverArtImage, err error) {
-	image, err = c.getImage("release", mbid, "back", size)
-	return
+	return c.getImage("release", mbid, "back", size)
 }
 
 // GetReleaseImage retrieves the image with the id imageid of the release with the MBID mbid in the specified size
 func (c *CAAClient) GetReleaseImage(mbid uuid.UUID, imageid int, size int) (image CoverArtImage, err error) {
 	id := strconv.Itoa(imageid)
-	image, err = c.getImage("release", mbid, id, size)
-	return
+	return c.getImage("release", mbid, id, size)
 }
 
 // GetReleaseGroupInfo retrieves information about the images in the Cover Art Archive for the release group with the MBID mbid
 func (c *CAAClient) GetReleaseGroupInfo(mbid uuid.UUID) (info *CoverArtInfo, err error) {
 	url := c.buildURL("release-group/" + mbid.String())
-	info, err = c.getAndJSON(url)
-	return
+	return c.getAndJSON(url)
 }
 
 // GetReleaseGroupFront retrieves the front image of the release group with the MBID mbid in the specified size
@@ -161,6 +157,5 @@ func (c *CAAClient) GetReleaseGroupFront(mbid uuid.UUID, size int) (image CoverA
 		err = InvalidImageSizeError{EntityType: "release-group", Size: size}
 		return
 	}
-	image, err = c.getImage("release-group", mbid, "front", size)
-	return
+	return c.getImage("release-group", mbid, "front", size)
 }
