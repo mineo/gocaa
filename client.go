@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"code.google.com/p/go-uuid/uuid"
+	"github.com/pborman/uuid"
 )
 
 const baseurl = "https://coverartarchive.org"

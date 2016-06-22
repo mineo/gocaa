@@ -1,7 +1,7 @@
 package caa
 
 import (
-	u "code.google.com/p/go-uuid/uuid"
+	u "github.com/pborman/uuid"
 )
 
 // StringToUUID is a reexported helper function of the UUID module to parse a
