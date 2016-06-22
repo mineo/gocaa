@@ -1,6 +1,7 @@
 # gocaa
 
 [![Build Status](https://travis-ci.org/mineo/gocaa.svg?branch=master)](https://travis-ci.org/mineo/gocaa)
+[![GoDoc](https://godoc.org/gopkg.in/mineo/gocaa.v1?status.svg)](https://godoc.org/gopkg.in/mineo/gocaa.v1)
 
 This package contains a library to access the
 [Cover Art Archive](https://coverartarchive.org) from Go.
