@@ -27,5 +27,6 @@ type CoverArtImage struct {
 	Mimetype string
 }
 
-// ThumbnailMap maps thumbnail names to their URLs. The only valid keys at the moment are "large" and "small".
+// ThumbnailMap maps thumbnail names to their URLs. The only valid keys are
+// "large" and "small", "250", "500" and "1200".
 type ThumbnailMap map[string]string

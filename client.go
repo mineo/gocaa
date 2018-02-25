@@ -87,6 +87,8 @@ func (c *CAAClient) getImage(entitytype string, mbid uuid.UUID, imageid string, 
 		extra = "-250"
 	} else if size == ImageSizeLarge || size == 500 {
 		extra = "-500"
+	} else if size == ImageSize1200 || size == 1200 {
+		extra = "-1200"
 	} else {
 		extra = ""
 	}

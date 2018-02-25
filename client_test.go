@@ -88,27 +88,30 @@ func (s *MySuite) TestGetReleaseInfo(c *C) {
 
 		// Taken from https://musicbrainz.org/doc/Cover_Art_Archive/API#.2Frelease.2F.7Bmbid.7D.2F
 		jsonresp := `
-		{
-			"images":[
-			{
-				"types":[
-					"Front"
-				],
-				"front":true,
-				"back":false,
-				"edit":17462565,
-				"image":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg",
-				"comment":"",
-				"approved":true,
-				"thumbnails":{
-					"large":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg",
-					"small":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg"
-				},
-				"id":"829521842"
-			}
-			],
-			"release":"http://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd"
-		}
+                {
+                  "images":[
+                     {
+                        "types":[
+                           "Front"
+                        ],
+                        "front":true,
+                        "back":false,
+                        "edit":17462565,
+                        "image":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg",
+                        "comment":"",
+                        "approved":true,
+                        "id":"829521842",
+                        "thumbnails":{
+                          "250":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg",
+                          "500":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg",
+                          "1200":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-1200.jpg",
+                          "small":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-250.jpg",
+                          "large":"http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842-500.jpg"
+                        }
+                     }
+                  ],
+                  "release":"http://musicbrainz.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd"
+                }
 		`
 		w.Write([]byte(jsonresp))
 	}
@@ -132,6 +135,7 @@ func (s *MySuite) TestGetReleaseInfo(c *C) {
 	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg")
 	d.Assert(i.Types[0], Equals, "Front")
 	d.Assert(len(i.Types), Equals, 1)
+	d.Assert(len(i.Thumbnails), Equals, 5)
 	d.AssertFalse(i.Back)
 	d.AssertTrue(i.Approved)
 	d.AssertTrue(i.Front)
@@ -146,27 +150,30 @@ func (s *MySuite) TestGetReleaseGroupInfo(c *C) {
 
 		// Taken from https://musicbrainz.org/doc/Cover_Art_Archive/API#.2Frelease-group.2F.7Bmbid.7D.2F
 		jsonresp := `
-		{
-			   "images": [
-				   {
-					   "approved": true,
-					   "back": false,
-					   "comment": "",
-					   "edit": 20202510,
-					   "front": true,
-					   "id": "2860563776",
-					   "image": "http://coverartarchive.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1/2860563776.jpg",
-					   "thumbnails": {
-						   "large": "http://coverartarchive.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1/2860563776-500.jpg",
-						   "small": "http://coverartarchive.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1/2860563776-250.jpg"
-					   },
-					   "types": [
-						   "Front"
-					   ]
-				   }
-			   ],
-			   "release": "http://musicbrainz.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1"
-	   }
+                {
+                    "release":"https://musicbrainz.org/release/f268b8bc-2768-426b-901b-c7966e76de29",
+                    "images":[
+                        {
+                            "edit":37284546,
+                            "id":"12750224075",
+                            "image":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075.png",
+                            "thumbnails":{
+                                "250":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075-250.jpg",
+                                "500":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075-500.jpg",
+                                "1200":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075-1200.jpg",
+                                "small":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075-250.jpg",
+                                "large":"http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075-500.jpg"
+                            },
+                            "comment":"",
+                            "approved":true,
+                            "front":false,
+                            "types":[
+                                "Back"
+                            ],
+                            "back":true
+                        }
+                    ]
+                }
 		`
 		w.Write([]byte(jsonresp))
 	}
@@ -181,16 +188,17 @@ func (s *MySuite) TestGetReleaseGroupInfo(c *C) {
 	}
 
 	d.Assert(len(info.Images), Equals, 1)
-	d.Assert(info.Release, Equals, "http://musicbrainz.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1")
+	d.Assert(info.Release, Equals, "https://musicbrainz.org/release/f268b8bc-2768-426b-901b-c7966e76de29")
 
 	i := info.Images[0]
 	d.Assert(i.Comment, Equals, "")
-	d.Assert(i.Edit, Equals, 20202510)
-	d.Assert(i.ID, Equals, "2860563776")
-	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/f7638b9b-a9aa-4c03-8734-9e692699f8b1/2860563776.jpg")
-	d.Assert(i.Types[0], Equals, "Front")
+	d.Assert(i.Edit, Equals, 37284546)
+	d.Assert(i.ID, Equals, "12750224075")
+	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075.png")
+	d.Assert(i.Types[0], Equals, "Back")
 	d.Assert(len(i.Types), Equals, 1)
-	d.AssertFalse(i.Back)
+	d.Assert(len(i.Thumbnails), Equals, 5)
+	d.AssertTrue(i.Back)
 	d.AssertTrue(i.Approved)
-	d.AssertTrue(i.Front)
+	d.AssertFalse(i.Front)
 }
