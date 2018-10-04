@@ -7,7 +7,7 @@ This package contains a library to access the
 [Cover Art Archive](https://coverartarchive.org) from Go.
 
 ## Installation
-To get the latest stable version, user
+To get the latest stable version, use
 
 	go get gopkg.in/mineo/gocaa.v1
 
