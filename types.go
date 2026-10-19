@@ -15,7 +15,7 @@ type CoverArtImageInfo struct {
 	Comment    string
 	Edit       int
 	Front      bool
-	ID         string
+	ID         CoverArtID
 	Image      string
 	Thumbnails ThumbnailMap
 	Types      []string
@@ -30,3 +30,16 @@ type CoverArtImage struct {
 // ThumbnailMap maps thumbnail names to their URLs. The only valid keys are
 // "large" and "small", "250", "500" and "1200".
 type ThumbnailMap map[string]string
+
+// CoverArtID prevents JSON unmarshalling errors due to CAA's inconsistent use of both numbers and strings
+// when returning an ID value in JSON responses
+type CoverArtID string
+
+func (id *CoverArtID) UnmarshalJSON(data []byte) error {
+	if data[0] == '"' && data[len(data)-1] == '"' {
+		*id = CoverArtID(data[1 : len(data)-1])
+		return nil
+	}
+	*id = CoverArtID(data)
+	return nil
+}

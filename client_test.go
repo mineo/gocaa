@@ -131,8 +131,89 @@ func (s *MySuite) TestGetReleaseInfo(c *C) {
 	i := info.Images[0]
 	d.Assert(i.Comment, Equals, "")
 	d.Assert(i.Edit, Equals, 17462565)
-	d.Assert(i.ID, Equals, "829521842")
+	d.Assert(i.ID, Equals, CoverArtID("829521842"))
 	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg")
+	d.Assert(i.Types[0], Equals, "Front")
+	d.Assert(len(i.Types), Equals, 1)
+	d.Assert(len(i.Thumbnails), Equals, 5)
+	d.AssertFalse(i.Back)
+	d.AssertTrue(i.Approved)
+	d.AssertTrue(i.Front)
+}
+
+func (s *MySuite) TestGetReleaseInfoNumber(c *C) {
+	d := D{c}
+	mbid := "d43770e6-ec79-4125-835a-f41287eeae5d"
+	f := func(w http.ResponseWriter, req *http.Request) {
+		path := fmt.Sprintf("/release/%s", mbid)
+		c.Assert(req.URL.Path, Equals, path)
+
+		// Taken from http://archive.org/download/mbid-d43770e6-ec79-4125-835a-f41287eeae5d/index.json
+		jsonresp := `
+                {
+				  "images": [
+					{
+					  "approved": true,
+					  "back": false,
+					  "comment": "Scanned from source at 1200dpi.",
+					  "edit": 87143237,
+					  "front": true,
+					  "id": 31713146840,
+					  "image": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840.jpg",
+					  "thumbnails": {
+						"250": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840-250.jpg",
+						"500": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840-500.jpg",
+						"1200": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840-1200.jpg",
+						"large": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840-500.jpg",
+						"small": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840-250.jpg"
+					  },
+					  "types": [
+						"Front"
+					  ]
+					},
+					{
+					  "approved": true,
+					  "back": false,
+					  "comment": "",
+					  "edit": 54572732,
+					  "front": false,
+					  "id": 20434913449,
+					  "image": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449.jpg",
+					  "thumbnails": {
+						"250": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449-250.jpg",
+						"500": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449-500.jpg",
+						"1200": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449-1200.jpg",
+						"large": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449-500.jpg",
+						"small": "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/20434913449-250.jpg"
+					  },
+					  "types": [
+						"Medium"
+					  ]
+					}
+				  ],
+				  "release": "https://musicbrainz.org/release/d43770e6-ec79-4125-835a-f41287eeae5d"
+				}
+		`
+		w.Write([]byte(jsonresp))
+	}
+
+	setup(f)
+	defer server.Close()
+
+	info, err := caaclient.GetReleaseInfo(uuid.Parse(mbid))
+
+	if err != nil {
+		c.Fail()
+	}
+
+	d.Assert(len(info.Images), Equals, 2)
+	d.Assert(info.Release, Equals, "https://musicbrainz.org/release/d43770e6-ec79-4125-835a-f41287eeae5d")
+
+	i := info.Images[0]
+	d.Assert(i.Comment, Equals, "Scanned from source at 1200dpi.")
+	d.Assert(i.Edit, Equals, 87143237)
+	d.Assert(i.ID, Equals, CoverArtID("31713146840"))
+	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/d43770e6-ec79-4125-835a-f41287eeae5d/31713146840.jpg")
 	d.Assert(i.Types[0], Equals, "Front")
 	d.Assert(len(i.Types), Equals, 1)
 	d.Assert(len(i.Thumbnails), Equals, 5)
@@ -193,7 +274,7 @@ func (s *MySuite) TestGetReleaseGroupInfo(c *C) {
 	i := info.Images[0]
 	d.Assert(i.Comment, Equals, "")
 	d.Assert(i.Edit, Equals, 37284546)
-	d.Assert(i.ID, Equals, "12750224075")
+	d.Assert(i.ID, Equals, CoverArtID("12750224075"))
 	d.Assert(i.Image, Equals, "http://coverartarchive.org/release/f268b8bc-2768-426b-901b-c7966e76de29/12750224075.png")
 	d.Assert(i.Types[0], Equals, "Back")
 	d.Assert(len(i.Types), Equals, 1)
